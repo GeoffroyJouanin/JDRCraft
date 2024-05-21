@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Factory</title>
+    <script src="characterFactory.js" defer></script>
+    <link href="characterFactory.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>Character Factory</h1>
+</header>
+<nav>
+    <a href="index.html">Main Home</a>
+</nav>
+<main>
+    <section>
+        <h2>Create character</h2>
+
+        <div id="characterMainContainer">
+            <!--Core infos-->
+            <div id="coreInfosContainer" class="mainElement">
+                <!--Name-->
+                <div class="nameDisplay" id="nameValue"></div>
+                <input class="primaryStatInput" id="nameInput" type="text" placeholder="Enter a name...">
+                <button class="addValueButton" id="nameButton">ENTER</button>
+
+                <p>
+                    <label for="alignmentChoice">Alignement</label>
+                    <select name="alignmentChoice" id="alignmentChoice">
+                        <option>Loyal Bon</option>
+                        <option>Neutre Bon</option>
+                        <option>Chaotique Bon</option>
+                        <option>Loyal Neutre</option>
+                        <option>Neutre</option>
+                        <option>Chaotique Neutre</option>
+                        <option>Loyal Mauvais</option>
+                        <option>Neutre Mauvais</option>
+                        <option>Chaotique Mauvais</option>
+                    </select>
+                    <button class="addValueButton" id="alignmentButton">ENTER</button>
+                </p>
+                <p class="display" id="alignmentDisplay"></p>
+                <!--Level-->
+                <p>Level</p>
+                <div class="StatValue" id="levelValue">1</div>
+                <input class="primaryStatInput" id="levelInput" type="number" placeholder="Enter your level...">
+                <button class="addValueButton" id="levelButton">ENTER</button>
+                <!--Class-->
+                <p>
+                    <label for="classChoice">Classe</label>
+                    <select name="classChoice" id="classChoice">
+                        <option>Barde</option>
+                        <option>Barbare</option>
+                        <option>Druide</option>
+                        <option>Ensorceleur</option>
+                        <option>Guerrier</option>
+                        <option>Magicien</option>
+                        <option>Moine</option>
+                        <option>Paladin</option>
+                        <option>Prêtre</option>
+                        <option>Rôdeur</option>
+                        <option>Roublard</option>
+                    </select>
+                    <button class="addValueButton" id="classButton">ENTER</button>
+                </p>
+                <p class="display" id="classDisplay"></p>
+                <!--Race-->
+                <p>
+                    <label for="raceChoice">Race</label>
+                    <select name="raceChoice" id="raceChoice">
+                        <option>Demi-elf</option>
+                        <option>Demi-orc</option>
+                        <option>Elf</option>
+                        <option>Gnome</option>
+                        <option>Halfelin</option>
+                        <option>Humain</option>
+                        <option>Nain</option>
+                    </select>
+                    <button class="addValueButton" id="raceButton">ENTER</button>
+                </p>
+                <p class="display" id="raceDisplay"></p>
+            </div>
+
+            <!--Primary Stats-->
+            <div id="primaryStatsContainer" class="mainElement">
+                <div class="primaryStatBlock">
+                    <p class="primaryStatName">Strength</p>
+                    <div class="primaryStatValue" id="strengthValue">10</div>
+                    <input class="primaryStatInput" id="strengthInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="strengthButton">ENTER</button>
+                </div>
+                <div class="primaryStatBlock">
+
+                    <p class="primaryStatName">Dexterity</p>
+                    <div class="primaryStatValue" id="dexterityValue">10</div>
+                    <input class="primaryStatInput" id="dexterityInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="dexterityButton">ENTER</button>
+                </div>
+                <div class="primaryStatBlock">
+
+                    <p class="primaryStatName">Constitution</p>
+                    <div class="primaryStatValue" id="constitutionValue">10</div>
+                    <input class="primaryStatInput" id="constitutionInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="constitutionButton">ENTER</button>
+                </div>
+                <div class="primaryStatBlock">
+
+                    <p class="primaryStatName">Intelligence</p>
+                    <div class="primaryStatValue" id="intelligenceValue">10</div>
+                    <input class="primaryStatInput" id="intelligenceInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="intelligenceButton">ENTER</button>
+                </div>
+                <div class="primaryStatBlock">
+
+                    <p class="primaryStatName">Wisdom</p>
+                    <div class="primaryStatValue" id="wisdomValue">10</div>
+                    <input class="primaryStatInput" id="wisdomInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="wisdomButton">ENTER</button>
+                </div>
+                <div class="primaryStatBlock">
+
+                    <p class="primaryStatName">Charisma</p>
+                    <div class="primaryStatValue" id="charismaValue">10</div>
+                    <input class="primaryStatInput" id="charismaInput" type="number" placeholder="Enter a value...">
+                    <button class="addValueButton" id="charismaButton">ENTER</button>
+                </div>
+            </div>
+
+            <!--Other Stats-->
+            <div id="secondaryStatsContainer" class="mainElement">
+
+                <div id="saveStatsContainer">
+                    <p>Reflex</p>
+                    <div class="StatValue" id="reflexValue">0</div>
+                    <p>Fortitude</p>
+                    <div class="StatValue" id="fortitudeValue">0</div>
+                    <p>Will</p>
+                    <div class="StatValue" id="willValue">0</div>
+                </div>
+
+                <div id="PVStatsContainer">
+                    <p>PV</p>
+                    <div class="StatValue" id="PVValue">1</div>
+                    <p>Dé de vie</p>
+                    <div id="lifeDiceClass"></div>
+                    <p>Liste des dés de vie</p>
+                    <div id="lifeDicesList">
+                        <div id="level1lifeDice"></div>
+                        <div id="nextLifeDicesAdded">
+
+                        </div>
+                        <input class="secondaryStatInput" id="addLifeDiceInput" type="number" placeholder="Enter a value...">
+                        <button class="addValueButton" id="addLifeDiceButton">ENTER</button>
+                    </div>
+                </div>
+
+                <div id="initiativeStatContainer">
+                    <p>Initiative</p>
+                    <div class="StatValue" id="initiativeValue">0</div>
+                </div>
+
+                <div id="attackStatsContainer">
+                    <p>BBA</p>
+                    <div class="StatValue" id="BBAValue">0</div>
+                    <p>BMO</p>
+                    <div class="StatValue" id="BMOValue">0</div>
+                    <p>Attaque au CAC</p>
+                    <div class="StatValue" id="attCaCValue">0</div>
+                    <p>Attaque à distance</p>
+                    <div class="StatValue" id="attDistValue">0</div>
+                </div>
+
+                <div id="defenseStatsContainer">
+                    <p>CA</p>
+                    <div class="StatValue" id="CAValue">0</div>
+                    <p>CA de contact</p>
+                    <div class="StatValue" id="CAContactValue">0</div>
+                    <p>CA pris au dépourvu</p>
+                    <div class="StatValue" id="CAPaDValue">0</div>
+                    <p>DMD</p>
+                    <div class="StatValue" id="DMDValue">0</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
