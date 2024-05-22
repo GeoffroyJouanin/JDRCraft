@@ -41,6 +41,7 @@
                     <button class="addValueButton" id="alignmentButton">ENTER</button>
                 </p>
                 <p class="display" id="alignmentDisplay"></p>
+
                 <!--Level-->
                 <p>Level</p>
                 <div class="StatValue" id="levelValue">1</div>
@@ -65,21 +66,29 @@
                     <button class="addValueButton" id="classButton">ENTER</button>
                 </p>
                 <p class="display" id="classDisplay"></p>
-                <!--Race-->
-                <p>
-                    <label for="raceChoice">Race</label>
-                    <select name="raceChoice" id="raceChoice">
-                        <option>Demi-elf</option>
-                        <option>Demi-orc</option>
-                        <option>Elf</option>
-                        <option>Gnome</option>
-                        <option>Halfelin</option>
-                        <option>Humain</option>
-                        <option>Nain</option>
-                    </select>
-                    <button class="addValueButton" id="raceButton">ENTER</button>
-                </p>
-                <p class="display" id="raceDisplay"></p>
+                <div id="raceContainer">
+                    <!--Race-->
+                    <p>
+                        <label for="raceChoice">Race</label>
+                        <select name="raceChoice" id="raceChoice">
+                            <option>Demi-elf</option>
+                            <option>Demi-orc</option>
+                            <option>Elf</option>
+                            <option>Gnome</option>
+                            <option>Halfelin</option>
+                            <option>Humain</option>
+                            <option>Nain</option>
+                        </select>
+                        <button class="addValueButton" id="raceButton">ENTER</button>
+                    </p>
+                    <p class="display" id="raceDisplay"></p>
+                </div>
+
+                <p>Taille</p>
+                <div class="display" id="sizeValue"></div>
+
+                <p>Vitesse</p>
+                <div class="display" id="speedValue"></div>
             </div>
 
             <!--Primary Stats-->
@@ -87,6 +96,9 @@
                 <div class="primaryStatBlock">
                     <p class="primaryStatName">Strength</p>
                     <div class="primaryStatValue" id="strengthValue">10</div>
+                    <div class="primaryStatValue" id="strengthPureValue">10</div>
+                    <div class="primaryStatValue" id="strengthRaceModifierValue">0</div>
+
                     <input class="primaryStatInput" id="strengthInput" type="number" placeholder="Enter a value...">
                     <button class="addValueButton" id="strengthButton">ENTER</button>
                 </div>
@@ -150,7 +162,8 @@
                         <div id="nextLifeDicesAdded">
 
                         </div>
-                        <input class="secondaryStatInput" id="addLifeDiceInput" type="number" placeholder="Enter a value...">
+                        <input class="secondaryStatInput" id="addLifeDiceInput" type="number"
+                               placeholder="Enter a value...">
                         <button class="addValueButton" id="addLifeDiceButton">ENTER</button>
                     </div>
                 </div>

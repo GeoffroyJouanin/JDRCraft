@@ -11,6 +11,15 @@ const BBACurveType = {
     STRONG: Symbol("strong"),
 };
 
+const primaryStatEnum = {
+    STRENGTH: "Strength",
+    DEXTERITY: "Dexterity",
+    CONSTITUTION: "Constitution",
+    INTELLIGENCE: "Intelligence",
+    WISDOM: "Wisdom",
+    CHARISMA: "Charisma",
+};
+
 const classEnum = {
     BARBARE: Symbol("Barbare"),
     BARDE: Symbol("Barde"),
@@ -50,6 +59,34 @@ function stringToClassType(classString) {
         throw new Error(`Cannot convert ${classString} into classTypeEnum`);
     }
     return classType;
+}
+
+const raceEnum = {
+    DEMI_ELF: "Demi-elf",
+    DEMI_ORC: "Demi-orc",
+    ELF: "Elf",
+    GNOME: "Gnome",
+    HALFELIN: "Halfelin",
+    HUMAIN: "Humain",
+    NAIN: "Nain",
+}
+
+const raceTypeMap = {
+    "Demi-elf": raceEnum.DEMI_ELF,
+    "Demi-orc": raceEnum.DEMI_ORC,
+    "Elf": raceEnum.ELF,
+    "Gnome": raceEnum.GNOME,
+    "Halfelin": raceEnum.HALFELIN,
+    "Humain": raceEnum.HUMAIN,
+    "Nain": raceEnum.NAIN,
+}
+
+function stringToRaceType(raceString) {
+    const raceType = raceTypeMap[raceString];
+    if (!raceType) {
+        throw new Error(`Cannot convert ${raceString} into classTypeEnum`);
+    }
+    return raceType;
 }
 
 const skillEnum = {
@@ -97,6 +134,7 @@ const diceEnum = {
     d10: 10,
     d12: 12,
     d20: 20,
+    d100: 100,
 };
 
 class classInfo {
@@ -134,16 +172,205 @@ classInfosMap.set(classEnum.PRETRE, new classInfo(BBACurveType.MEDIUM, SaveCurve
 classInfosMap.set(classEnum.RODEUR, new classInfo(BBACurveType.STRONG, SaveCurveType.STRONG, SaveCurveType.STRONG, SaveCurveType.WEAK, 5, diceEnum.d10, 6, []));
 classInfosMap.set(classEnum.ROUBLARD, new classInfo(BBACurveType.MEDIUM, SaveCurveType.STRONG, SaveCurveType.WEAK, SaveCurveType.WEAK, 4, diceEnum.d8, 8, []));
 
+const sizeEnum = {
+    INFIME: "Infime",
+    MIN: "Minuscule",
+    TP: "Très petit",
+    P: "Petit",
+    M: "Moyenne",
+    G: "Grand",
+    TG: "Très grand",
+    Gig: "Gigantesque",
+    C: "Colossal",
+}
+
+const speedEnum = {
+    VERY_SLOW: "4,5m",
+    SLOW: "6m",
+    NORMAL: "9m",
+    FAST: "12",
+}
+
+class primaryStatsPattern {
+    str
+    dex
+    con
+    int
+    wis
+    cha
+    any
+    constructor(str, dex, con, int, wis, cha, any) {
+        this.str = str;
+        this.dex = dex;
+        this.con = con;
+        this.int = int;
+        this.wis = wis;
+        this.cha = cha;
+        this.any = any;
+    }
+}
+
+class raceInfo {
+    stats
+    size
+    speed
+    languages
+    constructor(stats, size, speed, languages) {
+        this.stats = stats;
+        this.size = size;
+        this.speed = speed;
+        this.languages = languages;
+    }
+}
+
+let raceInfosMap = new Map();
+raceInfosMap.set(raceEnum.DEMI_ELF, new raceInfo(new primaryStatsPattern(0, 0, 0, 0, 0, 0, 2), sizeEnum.M, speedEnum.NORMAL, []));
+raceInfosMap.set(raceEnum.DEMI_ORC, new raceInfo(new primaryStatsPattern(0, 0, 0, 0, 0, 0, 2), sizeEnum.M, speedEnum.NORMAL, []));
+raceInfosMap.set(raceEnum.ELF, new raceInfo(new primaryStatsPattern(0, 2, -2, 2, 0, 0, 0), sizeEnum.M, speedEnum.NORMAL, []));
+raceInfosMap.set(raceEnum.GNOME, new raceInfo(new primaryStatsPattern(-2, 0, 2, 0, 0, 2,0), sizeEnum.P, speedEnum.SLOW, []));
+raceInfosMap.set(raceEnum.HALFELIN, new raceInfo(new primaryStatsPattern(-2, 2, 0, 0, 0, 2, 0), sizeEnum.P, speedEnum.SLOW, []));
+raceInfosMap.set(raceEnum.HUMAIN, new raceInfo(new primaryStatsPattern(0, 0, 0, 0, 0, 0, 2), sizeEnum.M, speedEnum.NORMAL, []));
+raceInfosMap.set(raceEnum.NAIN, new raceInfo(new primaryStatsPattern(0, 0, 2, 0, 2, -2, 0), sizeEnum.M, speedEnum.SLOW, []));
+
+/*
+class Character {
+    name = "";
+    level = 1;
+    className = undefined;
+    raceName = undefined;
+     classType = undefined;
+     raceType = undefined;
+
+     speed = undefined;
+     size = undefined;
+     languagesAvailable = [];
+
+     totalPV = 1;
+     actualPV = 1;
+     lifeDiceType = 6;
+     lifeDices = [];
+     richnessDicesNumber = 0;
+     TotalRichness = 0;
+     coins = {
+        bronze: 0,
+        silver: 0,
+        gold: 0,
+        platinum: 0,
+    }
+     skillsPoints = 0;
+     skillsClassPoints = 0;
+     skillsClassSet = [];
+
+     CA = 10;
+     CAContact = 10;
+     CAPaD = 10;
+
+     initiative = 0;
+
+     BBAClass = 0;
+
+     BBA = 0;
+     BMO = 0;
+     DMD = 0;
+     attCaC = 0;
+     attDist = 0;
+
+     strength = 10;
+     dexterity = 10;
+     constitution = 10;
+     intelligence = 10;
+     wisdom = 10;
+     charisma = 10;
+
+     strMod = 0;
+     dexMod = 0;
+     conMod = 0;
+     intMod = 0;
+     wisMod = 0;
+     chaMod = 0;
+
+     reflexSave = 0;
+     fortitudeSave = 0;
+     willSave = 0;
+
+     reflexSaveClass = 0;
+     fortitudeSaveClass = 0;
+     willSaveClass = 0;
+
+     armorBonus = 0;
+     shieldBonus = 0;
+     alignment = undefined;
+
+    constructor(name, level, className, raceName, classType, raceType, speed, size, languagesAvailable, totalPV, actualPV, lifeDiceType, lifeDices, richnessDicesNumber, TotalRichness, coins, skillsPoints, skillsClassPoints, skillsClassSet, CA, CAContact, CAPaD, initiative, BBAClass, BBA, BMO, DMD, attCaC, attDist, strength, dexterity, constitution, intelligence, wisdom, charisma, strMod, dexMod, conMod, intMod, wisMod, chaMod, reflexSave, fortitudeSave, willSave, reflexSaveClass, fortitudeSaveClass, willSaveClass, armorBonus, shieldBonus, alignment) {
+        this.name = name;
+        this.level = level;
+        this.className = className;
+        this.raceName = raceName;
+        this.classType = classType;
+        this.raceType = raceType;
+        this.speed = speed;
+        this.size = size;
+        this.languagesAvailable = languagesAvailable;
+        this.totalPV = totalPV;
+        this.actualPV = actualPV;
+        this.lifeDiceType = lifeDiceType;
+        this.lifeDices = lifeDices;
+        this.richnessDicesNumber = richnessDicesNumber;
+        this.TotalRichness = TotalRichness;
+        this.coins = coins;
+        this.skillsPoints = skillsPoints;
+        this.skillsClassPoints = skillsClassPoints;
+        this.skillsClassSet = skillsClassSet;
+        this.CA = CA;
+        this.CAContact = CAContact;
+        this.CAPaD = CAPaD;
+        this.initiative = initiative;
+        this.BBAClass = BBAClass;
+        this.BBA = BBA;
+        this.BMO = BMO;
+        this.DMD = DMD;
+        this.attCaC = attCaC;
+        this.attDist = attDist;
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.constitution = constitution;
+        this.intelligence = intelligence;
+        this.wisdom = wisdom;
+        this.charisma = charisma;
+        this.strMod = strMod;
+        this.dexMod = dexMod;
+        this.conMod = conMod;
+        this.intMod = intMod;
+        this.wisMod = wisMod;
+        this.chaMod = chaMod;
+        this.reflexSave = reflexSave;
+        this.fortitudeSave = fortitudeSave;
+        this.willSave = willSave;
+        this.reflexSaveClass = reflexSaveClass;
+        this.fortitudeSaveClass = fortitudeSaveClass;
+        this.willSaveClass = willSaveClass;
+        this.armorBonus = armorBonus;
+        this.shieldBonus = shieldBonus;
+        this.alignment = alignment;
+    }
+}*/
+
 let name = "";
 let level = 1;
 let className = undefined;
 let raceName = undefined;
 let classType = undefined;
+let raceType = undefined;
+
+let speed = undefined;
+let size = undefined;
+let languagesAvailable = [];
 
 let totalPV = 1;
 let actualPV = 1;
 let lifeDiceType = 6;
 let lifeDices = [];
+let richnessDicesNumber = 0;
 let TotalRichness = 0;
 const coins = {
     bronze: 0,
@@ -152,6 +379,8 @@ const coins = {
     platinum: 0,
 }
 let skillsPoints = 0;
+let skillsClassPoints = 0;
+let skillsClassSet = [];
 
 let CA = 10;
 let CAContact = 10;
@@ -173,6 +402,20 @@ let constitution = 10;
 let intelligence = 10;
 let wisdom = 10;
 let charisma = 10;
+
+let strengthPure = 10;
+let dexterityPure = 10;
+let constitutionPure = 10;
+let intelligencePure = 10;
+let wisdomPure = 10;
+let charismaPure = 10;
+
+let strengthRaceModifier = 0;
+let dexterityRaceModifier = 0;
+let constitutionRaceModifier = 0;
+let intelligenceRaceModifier = 0;
+let wisdomRaceModifier = 0;
+let charismaRaceModifier = 0;
 
 let strMod = 0;
 let dexMod = 0;
@@ -248,7 +491,7 @@ nameButton.addEventListener("click", (event) => {
 
 function changeValue(value, input) {
     let stat;
-    if (typeof input.value === "number") {
+    if (input.getAttribute("type") === "number") {
         stat = parseInt(input.value);
     } else {
         stat = input.value;
@@ -262,7 +505,9 @@ strengthButton.addEventListener("click", (event) => {
     if (strengthInput.value === "") {
         return;
     }
-    strength = changeValue(strengthValue, strengthInput);
+    strengthPure = changeValue(strengthValue, strengthInput);
+    let strengthPureDisplay = document.getElementById("strengthPureValue");
+    strengthPureDisplay.innerHTML = strengthPure;
     recalculate();
 });
 
@@ -270,7 +515,7 @@ dexterityButton.addEventListener("click", (event) => {
     if (dexterityInput.value === "") {
         return;
     }
-    dexterity = changeValue(dexterityValue, dexterityInput);
+    dexterityPure = changeValue(dexterityValue, dexterityInput);
     recalculate();
 })
 
@@ -278,7 +523,7 @@ constitutionButton.addEventListener("click", (event) => {
     if (constitutionInput.value === "") {
         return;
     }
-    constitution = changeValue(constitutionValue, constitutionInput);
+    constitutionPure = changeValue(constitutionValue, constitutionInput);
     recalculate();
 })
 
@@ -286,7 +531,7 @@ intelligenceButton.addEventListener("click", (event) => {
     if (intelligenceInput.value === "") {
         return;
     }
-    intelligence = changeValue(intelligenceValue, intelligenceInput);
+    intelligencePure = changeValue(intelligenceValue, intelligenceInput);
     recalculate();
 })
 
@@ -294,7 +539,7 @@ wisdomButton.addEventListener("click", (event) => {
     if (wisdomInput.value === "") {
         return;
     }
-    wisdom = changeValue(wisdomValue, wisdomInput);
+    wisdomPure = changeValue(wisdomValue, wisdomInput);
     recalculate();
 })
 
@@ -302,7 +547,7 @@ charismaButton.addEventListener("click", (event) => {
     if (charismaInput.value === "") {
         return;
     }
-    charisma = changeValue(charismaValue, charismaInput);
+    charismaPure = changeValue(charismaValue, charismaInput);
     recalculate();
 })
 
@@ -414,28 +659,38 @@ addLifeDiceButton.addEventListener("click", (event) => {
 
 function addLifeDiceInList() {
     let addLifeDiceInput = document.getElementById("addLifeDiceInput");
-    let value = addLifeDiceInput.value;
+    if (addLifeDiceInput.value === "")
+    {
+        return;
+    }
+    let value = parseInt(addLifeDiceInput.value);
     let nextLifeDicesAdded = document.getElementById("nextLifeDicesAdded");
     let newItem = document.createElement("div");
     newItem.setAttribute("class", "lifeDiceListItem");
-    newItem.innerHTML = value;
+    newItem.innerHTML = value.toString();
     lifeDices.push(value);
     nextLifeDicesAdded.appendChild(newItem);
     let newRetireButton = document.createElement("button");
     newRetireButton.setAttribute("class", "retireLifeDiceButton");
-    newRetireButton.innerHTML = "Retire";
+    newRetireButton.innerHTML = "Retirer";
     newRetireButton.addEventListener("click", (event) => {
-       retireLifeDice();
+        retireLifeDice(newItem, newRetireButton, value);
     });
+    nextLifeDicesAdded.appendChild(newRetireButton);
+    PV_compute();
 }
 
-<button class="retireLifeDiceButton">Retire</button>
-<br/>
+function retireLifeDice(item, retireButton, value) {
+    item.remove();
+    retireButton.remove();
+    lifeDices.splice(lifeDices.indexOf(value), 1);
+    PV_compute();
+}
 
 function PV_compute(LifeDiceType) {
     let PVDisplay = document.getElementById("PVValue");
-    console.log(lifeDices);
-    PVDisplay.innerHTML = getSumOfArray(lifeDices) + conMod;
+    totalPV = (getSumOfArray(lifeDices) + conMod)
+    PVDisplay.innerHTML = totalPV.toString();
 }
 
 function getSumOfArray(array) {
@@ -450,7 +705,21 @@ function affectStatsAtClassChoice(classInfo) {
     if (classInfo == null) {
         return;
     }
+    richnessDicesNumber = classInfo.RichnessDiceNumber;
+    skillsClassPoints = classInfo.SkillPoints;
+    skillsClassSet = classInfo.ClassSkillsSet;
     lifeDiceType = affectLifeDiceClass(classInfo.LifeDice);
+    BBAClass = affectBBA(classInfo.BBACurve);
+    reflexSaveClass = affectSave(classInfo.ReflexCurve);
+    fortitudeSaveClass = affectSave(classInfo.FortitudeCurve);
+    willSaveClass = affectSave(classInfo.WillCurve);
+}
+
+function savesAndBBACompute(classInfo) {
+    if (classInfo == null)
+    {
+        return;
+    }
     BBAClass = affectBBA(classInfo.BBACurve);
     reflexSaveClass = affectSave(classInfo.ReflexCurve);
     fortitudeSaveClass = affectSave(classInfo.FortitudeCurve);
@@ -465,15 +734,128 @@ function defineClass() {
     recalculate();
 }
 
+function updateStatHTML(block, value) {
+    block.innerHTML = value.toString();
+}
+
+function updateAllPrimaryStats() {
+    updateStatHTML(strengthValue, strength);
+    updateStatHTML(dexterityValue, dexterity);
+    updateStatHTML(constitutionValue, constitution);
+    updateStatHTML(intelligenceValue, intelligence);
+    updateStatHTML(wisdomValue, wisdom);
+    updateStatHTML(charismaValue, charisma);
+}
+
+function reinitializeStatsRaceModifiers()
+{
+    strengthRaceModifier = 0;
+    dexterityRaceModifier = 0;
+    constitutionRaceModifier = 0;
+    intelligenceRaceModifier = 0;
+    wisdomRaceModifier = 0;
+    charismaRaceModifier = 0;
+}
+
+function affectStatsAtRaceChoice(raceInfo) {
+    reinitializeStatsRaceModifiers();
+    strengthRaceModifier += raceInfo.stats.str;
+    let strengthRaceModifierDisplay = document.getElementById("strengthRaceModifierValue");
+    strengthRaceModifierDisplay.innerHTML = strengthRaceModifier;
+    dexterityRaceModifier += raceInfo.stats.dex;
+    constitutionRaceModifier += raceInfo.stats.con;
+    intelligenceRaceModifier += raceInfo.stats.int;
+    wisdomRaceModifier += raceInfo.stats.wis;
+    charismaRaceModifier += raceInfo.stats.cha;
+    let chooseStatRaceBonus = document.getElementById("chooseStatRaceBonus");
+    if (raceInfo.stats.any !== 0 && chooseStatRaceBonus == null) {
+        let raceContainer = document.getElementById("raceContainer");
+        chooseStatRaceBonus = document.createElement("p");
+        chooseStatRaceBonus.setAttribute("id", "chooseStatRaceBonus")
+        let label = document.createElement("label");
+        let id = "raceBonusChoice";
+        label.setAttribute("for", id);
+        label.innerHTML = "Choose the stat you want the bonus to apply";
+        let lineFeed = document.createElement("br");
+        let select = document.createElement("select");
+        select.setAttribute("name", id);
+        select.setAttribute("id", id);
+        for (let stat of Object.keys(primaryStatEnum))
+        {
+            let option = document.createElement("option");
+            option.innerHTML = primaryStatEnum[stat];
+            select.appendChild(option);
+        }
+        let button = document.createElement("button");
+        button.setAttribute("class", "addValueButton");
+        button.setAttribute("id", "raceBonusButton");
+        button.innerHTML = "ENTER";
+        button.addEventListener("click", (event) => {
+            reinitializeStatsRaceModifiers();
+            updateStatFromEnum(select.value, raceInfo.stats.any)
+            recalculate();
+        })
+        chooseStatRaceBonus.appendChild(label);
+        chooseStatRaceBonus.appendChild(lineFeed);
+        chooseStatRaceBonus.appendChild(select);
+        chooseStatRaceBonus.appendChild(button);
+        raceContainer.appendChild(chooseStatRaceBonus);
+    }
+    else if (chooseStatRaceBonus != null && raceInfo.stats.any === 0)
+    {
+        chooseStatRaceBonus.remove();
+    }
+    languagesAvailable = raceInfo.languages;
+    speed = raceInfo.speed;
+    size = raceInfo.size;
+
+    let speedDisplay = document.getElementById("speedValue");
+    speedDisplay.innerHTML = speed;
+    let sizeDisplay = document.getElementById("sizeValue");
+    sizeDisplay.innerHTML = size;
+    recalculate();
+}
+
+function updateStatFromEnum(statType, value)
+{
+    switch (statType)
+    {
+        case primaryStatEnum.STRENGTH:
+            strengthRaceModifier += value;
+            let strengthRaceModifierDisplay = document.getElementById("strengthRaceModifierValue");
+            strengthRaceModifierDisplay.innerHTML = strengthRaceModifier;
+            break;
+        case primaryStatEnum.DEXTERITY:
+            dexterityRaceModifier += value;
+            break;
+        case primaryStatEnum.CONSTITUTION:
+            constitutionRaceModifier += value;
+            break;
+        case primaryStatEnum.INTELLIGENCE:
+            intelligenceRaceModifier += value;
+            break;
+        case primaryStatEnum.WISDOM:
+            wisdomRaceModifier += value;
+            break;
+        case primaryStatEnum.CHARISMA:
+            charismaRaceModifier += value;
+            break;
+        default:
+            console.error(`Try to apply stat modification on ${statType}`);
+    }
+}
+
 function defineRace() {
     raceName = raceChoice.value;
+    raceType = stringToRaceType(raceName);
     raceDisplay.innerHTML = raceName;
+    affectStatsAtRaceChoice(raceInfosMap.get(raceType));
     recalculate();
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
     recalculate();
-})
+});
 
 function modCompute(stat) {
     return Math.floor((stat - 10) / 2);
@@ -498,11 +880,13 @@ function fightStatsCompute() {
     attCaC = BBA + strMod; // size
     attDist = BBA + dexMod; // size
     initiative = dexMod;
+    let BBADisplay = document.getElementById("BBAValue");
     let BMODisplay = document.getElementById("BMOValue");
     let DMDDisplay = document.getElementById("DMDValue");
     let attCaCDisplay = document.getElementById("attCaCValue");
     let attDistDisplay = document.getElementById("attDistValue");
     let initiativeDisplay = document.getElementById("initiativeValue");
+    BBADisplay.innerHTML = BBA;
     BMODisplay.innerHTML = BMO;
     DMDDisplay.innerHTML = DMD;
     attCaCDisplay.innerHTML = attCaC;
@@ -510,16 +894,28 @@ function fightStatsCompute() {
     initiativeDisplay.innerHTML = initiative;
 }
 
+function primaryStatsCompute()
+{
+    strength = strengthPure + strengthRaceModifier;
+    dexterity = dexterityPure + dexterityRaceModifier;
+    constitution = constitutionPure + constitutionRaceModifier;
+    intelligence = intelligencePure + intelligenceRaceModifier;
+    wisdom = wisdomPure + wisdomRaceModifier;
+    charisma = charismaPure + charismaRaceModifier;
+}
+
 function recalculate() {
     //always mods first
+    primaryStatsCompute();
+    updateAllPrimaryStats();
     strMod = modCompute(strength);
     dexMod = modCompute(dexterity);
     conMod = modCompute(constitution);
     intMod = modCompute(intelligence);
     wisMod = modCompute(wisdom);
     chaMod = modCompute(charisma);
-    //affectStatsAtClassChoice(classInfosMap.get(classType));
 
+    savesAndBBACompute(classInfosMap.get(classType));
     fightStatsCompute();
     savesCompute();
     CA_compute();
@@ -536,4 +932,3 @@ function CA_compute() {
     CAContactDisplay.innerHTML = CAContact;
     CAPaDDisplay.innerHTML = CAPaD;
 }
-

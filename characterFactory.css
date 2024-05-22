@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+}
+
 #characterMainContainer
 {
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+body
+{
+    background-color: dimgrey;
 }
 
 .primaryStatValue
@@ -16,16 +27,16 @@
 #coreInfosContainer {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+    background-color: sandybrown;
+    padding: 5%;
 }
 
 #primaryStatsContainer
 {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    margin: 10%;
-    border-color: black;
-    border-style: solid;
-    padding: 1em;
+    background-color: lightslategrey;
+    padding: 5%;
     text-align: center;
     display: grid;
 }
@@ -43,55 +54,54 @@
 {
     grid-row: 1 / 4;
     grid-column: 1 / 2;
-    border-color: black;
-    border-style: solid;
     text-align: center;
     padding: 1em;
-    margin: 10%;
+    background-color: coral;
 }
 
 #PVStatsContainer
 {
     grid-row: 1 / 2;
     grid-column: 2 / 5;
-    border-color: black;
-    border-style: solid;
+    background-color: aquamarine;
     text-align: center;
     padding: 1em;
-    margin: 10%;
 }
 
 #initiativeStatContainer
 {
     grid-row: 1 / 2;
     grid-column: 5 / 6;
-    border-color: black;
-    border-style: solid;
     text-align: center;
+    background-color: blanchedalmond;
     padding: 1em;
-    margin: 10%;
 }
 
 #attackStatsContainer
 {
+    background-color: greenyellow;
     grid-row: 2 / 4;
     grid-column: 2 / 4;
-    border-color: black;
-    border-style: solid;
     text-align: center;
     padding: 1em;
-    margin: 10%;
 }
 
 #defenseStatsContainer
 {
+    background-color: mediumpurple;
     grid-row: 2 / 4;
     grid-column: 4 / 6;
-    border-color: black;
-    border-style: solid;
     text-align: center;
     padding: 1em;
-    margin: 10%;
+}
+
+.addValueButton
+{
+    margin: 1%;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: darkslategray;
 }
 
 .primaryStatBlock
