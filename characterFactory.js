@@ -760,8 +760,6 @@ function reinitializeStatsRaceModifiers()
 function affectStatsAtRaceChoice(raceInfo) {
     reinitializeStatsRaceModifiers();
     strengthRaceModifier += raceInfo.stats.str;
-    let strengthRaceModifierDisplay = document.getElementById("strengthRaceModifierValue");
-    strengthRaceModifierDisplay.innerHTML = strengthRaceModifier;
     dexterityRaceModifier += raceInfo.stats.dex;
     constitutionRaceModifier += raceInfo.stats.con;
     intelligenceRaceModifier += raceInfo.stats.int;
@@ -822,8 +820,6 @@ function updateStatFromEnum(statType, value)
     {
         case primaryStatEnum.STRENGTH:
             strengthRaceModifier += value;
-            let strengthRaceModifierDisplay = document.getElementById("strengthRaceModifierValue");
-            strengthRaceModifierDisplay.innerHTML = strengthRaceModifier;
             break;
         case primaryStatEnum.DEXTERITY:
             dexterityRaceModifier += value;
