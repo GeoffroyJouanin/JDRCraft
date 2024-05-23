@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    background-image: url("mapMondeAlthaïziaBlur.jpg");
+    font-family: 'JetBrains Mono', monospace;
+    display: grid;
+}
+
+header
+{
+    display: flex;
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    font-weight: bolder;
+    font-size: 9em;
+    text-align: center;
+    background-image: linear-gradient(180deg, #7777ff, #000000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.gradient-border-title {
+    font-size: 9em; /* Taille de la police */
+    font-weight: bold;
+    color: transparent; /* Rendre le texte transparent */
+    background-image: linear-gradient(180deg, #9999ff, #333355); /* Dégradé de couleur */
+    -webkit-background-clip: text; /* Appliquer le dégradé au texte */
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+.gradient-border-title::before {
+    content: 'RolePlayCRAFT';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: transparent;
+    -webkit-text-stroke: 5px rgba(56, 56, 127, 0.8); /* Bordure de couleur autour des lettres */
+    z-index: -1; /* Mettre la bordure derrière le texte */
+}
+
+nav
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 5%;
+}
+
+a
+{
+    text-decoration: none;
+    color: #333355;
+    background-color: #aaaaff;
+    padding: 2%;
+    margin: 2%;
+    font-weight: bold;
+}
+
+.navBlocks
+{
+    text-align: center;
+    /*
+    border-radius: 5% 95% 5% 95% / 100% 0% 100% 0%;
+    border-style: solid;
+    border-right-width: 8px;
+    border-left-width: 3px;
+    border-bottom-width: 3px;
+    border-top-width: 0px;
+    border-color: #8888ff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px, rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    */
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+#characterFactoryLink
+{
+
+}
+
+#fightSimulatorLink
+{
+
+}
+
+#campaignMakerLink
+{
+
+}
+
+#mainSection
+{
+    background-color: black;
+    opacity: 65%;
+    color: #8888ff;
+}
+
+#welcomeMessage {
+    /*
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5% 95% 5% 95% / 100% 0% 100% 0%;
+
+    background-color: #8888ff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    */
+    font-size: 2em;
+    margin: 0 0 5% 0;
+    padding: 5% 5em 2em 5em;
+    text-align: justify;
+    font-weight: bold;
+
+}
+
+hr
+{
+    border-color: #8888ff;
+    border-top-width: 2px;
+    width: 80%;
+}
+
+#onGoingListBlock
+{
+    /*
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5% 95% 5% 95% / 100% 0% 100% 0%;
+    background-color: #8888ff;
+    margin: 5%;
+    font-weight: bold;
+     */
+    font-size: 24px;
+    margin: 5% 0 0 0;
+    font-weight: bold;
+}
+
+#onGoingListTitle
+{
+    text-align: center;
+    padding: 2em;
+}
+
+#onGoingListElements
+{
+    margin: 0 0 0 6%;
+    padding: 0 5em 5em 5em;
+}
+
+footer
+{
+    color: #aaaaff;
+    background-color: #333355;
+    padding: 1%;
+    text-align: center;
+    font-weight: bold;
+}
