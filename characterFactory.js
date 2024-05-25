@@ -1,5 +1,73 @@
 "use strict"
 
+class Character {
+    name;
+    level;
+    className;
+    raceName;
+    
+    classType;
+    raceType;
+    alignment;
+
+    speed;
+    size;
+    languagesAvailable;
+    languages;
+
+    PV;
+
+    lifeDiceType;
+    lifeDices;
+    richnessDicesNumber;
+    TotalRichness;
+    coins;
+    skillsPoints;
+    skillsClassPoints;
+    skillsClassSet;
+
+    CA;
+    CAContact;
+    CAPaD;
+
+    initiative;
+
+    BBAClass;
+
+    BBA;
+    BMO;
+    DMD;
+    attCaC;
+    attDist;
+
+    strength;
+    dexterity;
+    constitution;
+    intelligence;
+    wisdom;
+    charisma;
+
+    strMod;
+    dexMod;
+    conMod;
+    intMod;
+    wisMod;
+    chaMod;
+
+    reflexSave;
+    fortitudeSave;
+    willSave;
+
+    reflexSaveClass;
+    fortitudeSaveClass;
+    willSaveClass;
+
+    armorBonus;
+    naturalArmorBonus;
+    shieldBonus;
+
+}
+
 const SaveCurveType = {
     WEAK: Symbol("weak"),
     STRONG: Symbol("strong"),
