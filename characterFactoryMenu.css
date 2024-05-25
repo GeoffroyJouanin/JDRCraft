@@ -1,9 +1,181 @@
-.triangle-left {
+/*.triangle-left {
     display: block;
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
-    border-right: 50px solid #333;
+    border-right: 50px solid #7777bb;
     border-bottom: 25px solid transparent;
+    margin: 10%;
+    position: relative;
+}
+
+.triangle-left::before
+{
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-right: 61px solid #333355;
+    border-bottom: 30px solid transparent;
+    z-index: -1;
+}*/
+.triangle {
+    margin: 5% 0 10% 8%;
+    font-size: 7em; /* Taille de la police */
+    font-weight: bold;
+    color: transparent; /* Rendre le texte transparent */
+    background-image: linear-gradient(180deg, #9999ff, #333355); /* Dégradé de couleur */
+    -webkit-background-clip: text; /* Appliquer le dégradé au texte */
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+
+}
+
+.triangle::before {
+    content: '<';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: transparent;
+    -webkit-text-stroke: 5px rgba(56, 56, 127, 0.8); /* Bordure de couleur autour des lettres */
+    z-index: -1; /* Mettre la bordure derrière le texte */
+    text-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+body {
+    margin: 0;
+    background-image: url("mapMondeAlthaïziaBlur.jpg");
+    font-family: 'JetBrains Mono', monospace;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+h1 {
+    margin: 5% 10% 10% 10%;
+    text-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.gradient-border-title {
+    font-size: 5em; /* Taille de la police */
+    font-weight: bold;
+    color: transparent; /* Rendre le texte transparent */
+    background-image: linear-gradient(180deg, #9999ff, #333355); /* Dégradé de couleur */
+    -webkit-background-clip: text; /* Appliquer le dégradé au texte */
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+.gradient-border-title::before {
+    content: 'Character Factory Menu';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: transparent;
+    -webkit-text-stroke: 5px rgba(56, 56, 127, 0.8); /* Bordure de couleur autour des lettres */
+    z-index: -1; /* Mettre la bordure derrière le texte */
+}
+
+/*
+{
+    text-decoration: none;
+    color: #333355;
+    background-color: #aaaaff;
+    padding: 2%;
     margin: 2%;
+    font-weight: bold;
+}*/
+
+.navButton
+{
+    text-align: center;
+    /*
+    border-radius: 5% 95% 5% 95% / 100% 0% 100% 0%;
+    border-style: solid;
+    border-right-width: 8px;
+    border-left-width: 3px;
+    border-bottom-width: 3px;
+    border-top-width: 0px;
+    border-color: #8888ff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px, rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    */
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    text-decoration: none;
+    color: #333355;
+    background-color: #aaaaff;
+    padding: 1%;
+    margin: 5%;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #333355;
+    border-width: 3px;
+}
+
+#mainSection {
+    background-color: black;
+    opacity: 65%;
+    color: #8888ff;
+}
+
+hr
+{
+    border-color: #8888ff;
+    border-top-width: 2px;
+    width: 80%;
+}
+
+#testInput
+{
+    font-weight: bold;
+    padding: 2%;
+    margin : 5%;
+    color: #333355;
+    background-color: #aaaaff;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+#characterBankContainer
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 40px;
+    margin: 5%;
+}
+
+.characterBlock
+{
+    height: 200px;
+    font-weight: bold;
+    padding: 15%;
+
+    color: #333355;
+    background-color: #aaaaff;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#nameButton
+{
+    font-weight: bold;
+    color: #333355;
+    background-color: #aaaaff;
+    border-color: #333355;
+}
+
+footer
+{
+    color: #aaaaff;
+    background-color: #333355;
+    padding: 1%;
+    text-align: center;
+    font-weight: bold;
 }

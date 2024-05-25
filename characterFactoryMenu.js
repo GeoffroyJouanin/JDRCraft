@@ -1,64 +1,91 @@
 "use strict";
 
-let download = document.getElementById("download");
-let nameButton = document.getElementById("nameButton");
-let nameInput = document.getElementById("nameInput");
+import {save, load, importJSON, exportJSON } from "./storageManager.js";
 
-let nameUser = "Jean";
-let characters = [];
+const listStorageName = "charactersList";
+let charactersList = [];
+
+let exportFileName=listStorageName + "File";
+
+const characterBlockClassName = "characterBlock";
+let characterContainer = document.getElementById("characterBankContainer");
+let mainBlock = document.getElementsByTagName("main")[0];
+
+let importAllButton = document.getElementById("importAllInput");
+let exportAllButton = document.getElementById("exportAllButton");
+
+importAllButton.addEventListener('click', (event) => {
+    let input = document.createElement("input");
+    input.accept = ".json";
+    input.type = "file";
+    document.body.appendChild(input);
+    input.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            importJSON(file)
+                .then(jsonObj => {
+                    charactersList = charactersList.concat(jsonObj);
+                    save(listStorageName, charactersList);
+                    displayList();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert(error.message);
+                });
+        } else {
+            alert('Aucun fichier sélectionné');
+        }
+    });
+    input.click();
+    document.body.removeChild(input);
+});
+
+exportAllButton.addEventListener("click", (event) => {
+    exportJSON(charactersList, exportFileName);
+});
+
+let nameInput = document.getElementById("nameInput");
+let nameButton = document.getElementById("nameButton");
 
 nameButton.addEventListener("click", (event) => {
-    if (nameInput.value === "")
-    {
+    if (nameInput.value === "") {
         return;
     }
-   nameUser = nameInput.value;
-   nameInput.value = "";
-});
-
-download.addEventListener("click", (event) => {
-    const data = {
-        name: nameUser,
-        age: 30,
-        city: "Paris"
-    };
-
-// Convertir l'objet en une chaîne JSON
-    const jsonStr = JSON.stringify(data, null, 2);
-
-// Créer un Blob avec le contenu JSON
-    const blob = new Blob([jsonStr], { type: "application/json" });
-
-// Créer un lien pour le téléchargement
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'data.json';
-
-// Ajouter le lien au document et déclencher le téléchargement
-    document.body.appendChild(a);
-    a.click();
-
-// Nettoyer
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    characters.push(data);
-    localStorage.setItem("characters", JSON.stringify(characters));
-});
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    characters = JSON.parse(localStorage.getItem("characters"));
-    if (characters === "" || !characters)
-    {
-        characters = [];
-    }
-    for (let character of characters)
-    {
-        let display = document.createElement("p");
-        display.innerHTML = character.name;
-        let bank = document.getElementById("bankContainer");
-        bank.appendChild(display);
-    }
+    charactersList.push(nameInput.value);
+    nameInput.value = "";
+    save(listStorageName, charactersList);
+    displayList();
 })
 
+document.addEventListener("DOMContentLoaded", (event) => {
+    charactersList = load(listStorageName);
+    if (charactersList == null || charactersList === []) {
+        charactersList = [];
+        return;
+    }
+    displayList();
+});
+
+function destroyAndRecreateBankContainer()
+{
+    characterContainer = document.getElementById("characterBankContainer");
+    characterContainer.remove();
+    characterContainer = document.createElement("section");
+    characterContainer.setAttribute("id", "characterBankContainer");
+    mainBlock.appendChild(characterContainer);
+}
+
+function displayList() {
+    destroyAndRecreateBankContainer();
+    charactersList = load(listStorageName);
+    if (charactersList == null || charactersList === []) {
+        charactersList = [];
+        return;
+    }
+    for (let character of charactersList) {
+        let newBlock = document.createElement("p");
+        newBlock.setAttribute("class", characterBlockClassName);
+        newBlock.innerHTML = character;
+        characterContainer.appendChild(newBlock);
+    }
+}

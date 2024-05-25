@@ -2,25 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Character Factory Menu</title>
-    <script src="characterFactoryMenu.js" defer></script>
+    <title>Character Factory - Menu</title>
+    <script type="module" src="characterFactoryMenu.js" defer></script>
     <link href="characterFactoryMenu.css" rel="stylesheet">
 </head>
 <body>
-<nav>
-   <a href="index.html" class="triangle-left"></a>
-</nav>
+<header>
+    <a href="index.html" class="triangle"><</a>
+    <h1 class="gradient-border-title">Character Factory Menu</h1>
+</header>
 <main>
-    <a href="">New Character</a>
-    <a href="">Modify current</a>
-    <button id="download">Export to JSON file</button>
-
-    <input type="text" id="nameInput" placeholder="Enter the name...">
-    <button id="nameButton">ENTER</button>
-
-    <div id="bankContainer">
-
+    <section id="outsideBankButtonsSection">
+        <a href="characterFactory.html" id="newCharacterLink" class="navButton">New Character</a>
+        <button id="exportAllButton" class="navButton">Export</button>
+        <button id="importAllInput" class="navButton">Import</button>
+    </section>
+    <div id="testInput">
+        <input id="nameInput" type="text" placeholder="Enter a name...">
+        <button id="nameButton">ENTER</button>
     </div>
+
+    <section id="characterBankContainer">
+    </section>
 </main>
+<footer>
+    <p>&copy; 2024 Geoffroy Jouanin</p>
+</footer>
 </body>
 </html>
